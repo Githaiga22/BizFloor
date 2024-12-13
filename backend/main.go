@@ -23,6 +23,8 @@ func main() {
 	if err := db.AutoMigrate(
 		&models.Business{},
 		&models.Service{},
+		&models.Booking{},
+		&models.Payment{},
 	); err != nil {
 		log.Fatalf("Failed to migrate database schema: %v", err)
 	}
