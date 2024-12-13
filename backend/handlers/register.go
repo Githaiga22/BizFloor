@@ -9,7 +9,9 @@ import (
 func RegisterHandlers(mux *http.ServeMux, db *gorm.DB) {
 	profileHandler := &ProfileHandler{DB: db}
 	serviceHandler := &ServiceHandler{DB: db}
+	bookingHandler := &BookingHandler{DB: db}
 
 	mux.HandleFunc("/profile", profileHandler.CreateProfile)
 	mux.HandleFunc("/add-service", serviceHandler.AddServiceHandler)
+	mux.HandleFunc("/create-booking", bookingHandler.CreateBookingHandler)
 }
