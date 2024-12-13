@@ -10,9 +10,14 @@ import (
 
 	"group7/auth"
 	"group7/db"
+	"group7/models"
+	"gorm.io/gorm"
 )
 
-var tmpl *template.Template
+var (
+	tmpl     *template.Template
+	database *gorm.DB
+)
 
 func init() {
 	// Get current working directory
@@ -25,13 +30,13 @@ func init() {
 	tmpl, err = template.ParseGlob(filepath.Join(currentDir, "templates", "*.html"))
 	if err != nil {
 		log.Printf("Error parsing templates: %v", err)
-		
 	}
 }
 
 func main() {
 	// Initialize database
-	database, err := db.InitDB()
+	var err error
+	database, err = db.InitDB()
 	if err != nil {
 		log.Fatalf("Failed to initialize database: %v", err)
 	}
@@ -85,11 +90,18 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Fetch user from database to get is_business_owner status
+	var user models.User
+	if err := database.Where("id = ?", userID).First(&user).Error; err != nil {
+		http.Error(w, "User not found", http.StatusNotFound)
+		return
+	}
+
 	response := auth.User{
 		ID:              userID,
 		Name:            session.UserName,
 		Email:           session.UserEmail,
-		IsBusinessOwner: false, 
+		IsBusinessOwner: user.IsBusinessOwner,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
