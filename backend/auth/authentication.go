@@ -50,6 +50,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		user.ID,
 		user.Name,
 		user.Email,
+		user.IsBusinessOwner,
 		r.RemoteAddr,
 	)
 	if err != nil {
@@ -150,6 +151,7 @@ func (h *AuthHandler) Signup(w http.ResponseWriter, r *http.Request) {
 		newUser.ID,
 		newUser.Name,
 		newUser.Email,
+		newUser.IsBusinessOwner,
 		r.RemoteAddr,
 	)
 	if err != nil {

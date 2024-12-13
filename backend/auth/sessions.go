@@ -8,14 +8,15 @@ import (
 )
 
 type Session struct {
-	ID           uuid.UUID
-	UserID       uint
-	UserName     string
-	UserEmail    string
-	IPAddress    string
-	CreatedAt    time.Time
-	ExpiresAt    time.Time
-	LastActivity time.Time
+	ID              uuid.UUID
+	UserID          uint
+	UserName        string
+	UserEmail       string
+	IsBusinessOwner bool
+	IPAddress       string
+	CreatedAt       time.Time
+	ExpiresAt       time.Time
+	LastActivity    time.Time
 }
 
 type SessionStore struct {
@@ -29,7 +30,7 @@ func NewSessionStore() *SessionStore {
 	}
 }
 
-func (store *SessionStore) CreateSession(userID uint, userName, userEmail, ipAddress string) (*Session, error) {
+func (store *SessionStore) CreateSession(userID uint, userName, userEmail string, isBusinessOwner bool, ipAddress string) (*Session, error) {
 	store.mu.Lock()
 	defer store.mu.Unlock()
 
@@ -39,14 +40,15 @@ func (store *SessionStore) CreateSession(userID uint, userName, userEmail, ipAdd
 	}
 
 	session := &Session{
-		ID:           sessionID,
-		UserID:       userID,
-		UserName:     userName,
-		UserEmail:    userEmail,
-		IPAddress:    ipAddress,
-		CreatedAt:    time.Now(),
-		ExpiresAt:    time.Now().Add(24 * time.Hour),
-		LastActivity: time.Now(),
+		ID:              sessionID,
+		UserID:          userID,
+		UserName:        userName,
+		UserEmail:       userEmail,
+		IsBusinessOwner: isBusinessOwner,
+		IPAddress:       ipAddress,
+		CreatedAt:       time.Now(),
+		ExpiresAt:       time.Now().Add(24 * time.Hour),
+		LastActivity:    time.Now(),
 	}
 
 	store.sessions[sessionID] = session
