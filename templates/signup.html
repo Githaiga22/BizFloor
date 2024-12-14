@@ -1,103 +1,32 @@
-<html><head><base href="/">
+<html>
+
+<head>
+    <base href="/">
     <title>Sign Up - BizFloor</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .form-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: 500;
-        }
-        input[type="text"], 
-        input[type="email"], 
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-        input[type="text"]:focus, 
-        input[type="email"]:focus, 
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 5px rgba(52,152,219,0.3);
-        }
-        .error {
-            color: #e74c3c;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 4px;
-            background-color: rgba(231,76,60,0.1);
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background: #2980b9;
-        }
-        .login-link {
-            margin-top: 20px;
-            text-align: center;
-            color: #7f8c8d;
-        }
-        .login-link a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-        .user-type-container {
-            margin-bottom: 20px;
-        }
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            margin-top: 10px;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        input[type="radio"] {
-            accent-color: #3498db;
-        }
-    </style>
-    </head>
-    <body>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-business-time"></i>
+                BizFloor
+            </a>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li class="auth-buttons">
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main class="form-b">
         <div class="form-container">
             <h2>Sign Up for BizFloor</h2>
             <div id="error" class="error" style="display: none;"></div>
@@ -137,45 +66,94 @@
                 Already have an account? <a href="/login">Login here</a>
             </div>
         </div>
-    
-        <script>
-            document.getElementById('signupForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const errorDiv = document.getElementById('error');
-                errorDiv.style.display = 'none';
-                
-                try {
-                    const isBusinessOwner = document.getElementById('businessType').checked;
-                    
-                    const response = await fetch('/api/auth/signup', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: document.getElementById('name').value,
-                            email: document.getElementById('email').value,
-                            phone: document.getElementById('phone').value,
-                            password: document.getElementById('password').value,
-                            is_business_owner: isBusinessOwner
-                        })
-                    });
-    
-                    if (!response.ok) {
-                        const error = await response.text();
-                        throw new Error(error);
-                    }
-    
-                    const data = await response.json();
-                    // Store token
-                    localStorage.setItem('token', data.token);
-                    // Redirect based on user type
-                    window.location.href = isBusinessOwner ? '/business-dashboard' : '/customer-dashboard';
-                } catch (error) {
-                    errorDiv.textContent = error.message;
-                    errorDiv.style.display = 'block';
+    </main>
+    <footer>
+        <link rel="stylesheet" href="/static/css/styles.css">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>BizFloor provides smart solutions for modern business management needs.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://example.com/features">Features</a></li>
+                    <li><a href="https://example.com/pricing">Pricing</a></li>
+                    <li><a href="https://example.com/testimonials">Testimonials</a></li>
+                    <li><a href="https://example.com/blog">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="https://example.com/help">Help Center</a></li>
+                    <li><a href="https://example.com/faq">FAQ</a></li>
+                    <li><a href="https://example.com/contact">Contact Us</a></li>
+                    <li><a href="https://example.com/documentation">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> support@bizfloor.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 BizFloor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="static/script.js">
+    </script>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorDiv = document.getElementById('error');
+            errorDiv.style.display = 'none';
+
+            try {
+                const isBusinessOwner = document.getElementById('businessType').checked;
+
+                const response = await fetch('/api/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        password: document.getElementById('password').value,
+                        is_business_owner: isBusinessOwner
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(error);
                 }
-            });
-        </script>
-    </body>
-    </html>
+
+                const data = await response.json();
+                // Store token
+                localStorage.setItem('token', data.token);
+                // Redirect based on user type
+                window.location.href = isBusinessOwner ? '/business-dashboard' : '/customer-dashboard';
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
