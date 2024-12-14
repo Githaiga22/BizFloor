@@ -1,6 +1,8 @@
-import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ isOpen, setIsOpen, setShowRegisterModal }) => {
+  const navigate = useNavigate();
+
   return (
     <nav className="bg-gradient-to-r from-blue-50 to-indigo-100 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,26 +22,26 @@ const Navbar = ({ isOpen, setIsOpen, setShowRegisterModal }) => {
                   d="M13 10V3L4 14h7v7l9-11h-7z"
                 />
               </svg>
-              <span className="ml-2 text-xl font-bold text-gray-800">
+              <Link to="/" className="ml-2 text-xl font-bold text-gray-800">
                 BizFlow
-              </span>
+              </Link>
             </div>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <a href="/" className="text-gray-600 hover:text-blue-400">
+            <Link to="/" className="text-gray-600 hover:text-blue-400">
               Home
-            </a>
-            <a href="/about" className="text-gray-600 hover:text-blue-400">
+            </Link>
+            <Link to="/about" className="text-gray-600 hover:text-blue-400">
               About Us
-            </a>
-            <a href="/contact" className="text-gray-600 hover:text-blue-400">
+            </Link>
+            <Link to="/contact" className="text-gray-600 hover:text-blue-400">
               Contact
-            </a>
-            <a href="/login" className="text-gray-600 hover:text-blue-400">
+            </Link>
+            <Link to="/login" className="text-gray-600 hover:text-blue-400">
               Login
-            </a>
+            </Link>
 
             {/* Register Button with Dropdown */}
             <div className="relative group">
@@ -107,20 +109,20 @@ const Navbar = ({ isOpen, setIsOpen, setShowRegisterModal }) => {
       {/* Mobile Menu */}
       <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <a href="/" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
+          <Link to="/" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
             Home
-          </a>
-          <a href="/about" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
+          </Link>
+          <Link to="/about" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
             About Us
-          </a>
-          <a href="/contact" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
+          </Link>
+          <Link to="/contact" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
             Contact
-          </a>
-          <a href="/login" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
+          </Link>
+          <Link to="/login" className="block px-3 py-2 text-gray-600 hover:text-blue-400">
             Login
-          </a>
+          </Link>
           <button
-            onClick={() => setShowRegisterModal(true)}
+            onClick={() => setShowRegisterModal("customer")}
             className="block w-full text-left px-3 py-2 text-gray-600 hover:text-blue-400"
           >
             Register
