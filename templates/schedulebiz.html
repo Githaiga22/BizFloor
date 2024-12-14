@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Dashboard</title>
+    <link href="/static/css/schedule.css" rel="stylesheet">
+    <html>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="logo">BizFloor</div>
+            <div class="nav-buttons">
+                <button class="primary-btn">Logout</button>
+            </div>
+        </nav>
+    
+        <div class="service-details">
+            <div class="business-header">
+                <div class="business-info">
+                    <h1>Serenity Spa & Wellness</h1>
+                    <p>Luxury Massage & Wellness Services</p>
+                    <div class="rating">★★★★★</div>
+                    <span class="category-tag">Massage & Beauty</span>
+                </div>
+                <div class="booking-card">
+                    <div class="price">From $45/service</div>
+                    <button class="book-btn">Book Appointment</button>
+                </div>
+            </div>
+    
+            <div class="booking-filters">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Select Service</label>
+                        <select id="service-select">
+                            <option value="">Choose a service...</option>
+                            <option value="manicure">Manicure & Nail Art</option>
+                            <option value="pedicure">Pedicure Deluxe</option>
+                            <option value="boxbraids">Box Braids</option>
+                            <option value="dreadlocks">Dreadlock Maintenance</option>
+                            <option value="swedish">Swedish Massage</option>
+                            <option value="deeptissue">Deep Tissue Massage</option>
+                            <option value="cornrows">Cornrows</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Select Date</label>
+                        <input type="date" class="date-input" min="2024-01-20">
+                    </div>
+                    <div class="filter-group">
+                        <label>Available Time Slots</label>
+                        <select id="time-select">
+                            <option value="">Choose time...</option>
+                            <option value="9:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="2:00">2:00 PM</option>
+                            <option value="3:30">3:30 PM</option>
+                            <option value="4:00">4:00 PM</option>
+                            <option value="5:00">5:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <button class="search-btn">Search Available Slots</button>
+                </div>
+            </div>
+    
+            <div class="description">
+                Experience ultimate relaxation and beauty treatments at Serenity Spa & Wellness. Our expert therapists and beauty professionals provide personalized services in a tranquil, luxurious environment. From massage therapy to beauty treatments, we offer comprehensive care for your well-being.
+            </div>
+    
+            <div class="services-list">
+                <h2>Our Services & Available Slots</h2>
+                <a href="https://bizfloor.com/payment/manicure" style="text-decoration: none; color: inherit;">
+                    <div class="service-item">
+                        <span class="service-name">Manicure & Nail Art</span>
+                        <span class="service-duration">45 min</span>
+                        <span class="service-price">$45</span>
+                        <span class="slot-status available">9:00 AM Available</span>
+                    </div>
+                </a>
+                <a href="https://bizfloor.com/payment/pedicure" style="text-decoration: none; color: inherit;">
+                    <div class="service-item">
+                        <span class="service-name">Pedicure Deluxe</span>
+                        <span class="service-duration">60 min</span>
+                        <span class="service-price">$55</span>
+                        <span class="slot-status booked">10:00 AM Booked</span>
+                    </div>
+                </a>
+                <a href="https://bizfloor.com/payment/boxbraids" style="text-decoration: none; color: inherit;">
+                    <div class="service-item">
+                        <span class="service-name">Box Braids</span>
+                        <span class="service-duration">180 min</span>
+                        <span class="service-price">$150</span>
+                        <span class="slot-status available">11:30 AM Available</span>
+                    </div>
+                </a>
+                <a href="https://bizfloor.com/payment/dreadlocks" style="text-decoration: none; color: inherit;">
+                    <div class="service-item">
+                        <span class="service-name">Dreadlock Maintenance</span>
+                        <span class="service-duration">120 min</span>
+                        <span class="service-price">$100</span>
+                        <span class="slot-status booked">2:00 PM Booked</span>
+                    </div>
+                </a>
+                <a href="https://bizfloor.com/payment/swedish" style="text-decoration: none; color: inherit;">
+                    <div class="service-item">
+                        <span class="service-name">Swedish Massage</span>
+                        <span class="service-duration">60 min</span>
+                        <span class="service-price">$75</span>
+                        <span class="slot-status available">3:30 PM Available</span>
+                    </div>
+                </a>
+                <a href="https://bizfloor.com/payment/deeptissue" style="text-decoration: none; color: inherit;">
+                    <div class="service-item">
+                        <span class="service-name">Deep Tissue Massage</span>
+                        <span class="service-duration">60 min</span>
+                        <span class="service-price">$85</span>
+                        <span class="slot-status available">4:00 PM Available</span>
+                    </div>
+                </a>
+                <a href="https://bizfloor.com/payment/cornrows" style="text-decoration: none; color: inherit;">
+                    <div class="service-item">
+                        <span class="service-name">Cornrows</span>
+                        <span class="service-duration">90 min</span>
+                        <span class="service-price">$80</span>
+                        <span class="slot-status booked">5:00 PM Booked</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="https://bizfloor.com/about">Our Story</a></li>
+                        <li><a href="https://bizfloor.com/team">Team</a></li>
+                        <li><a href="https://bizfloor.com/careers">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="https://bizfloor.com/services">Services</a></li>
+                        <li><a href="https://bizfloor.com/pricing">Pricing</a></li>
+                        <li><a href="https://bizfloor.com/blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="https://bizfloor.com/help">Help Center</a></li>
+                        <li><a href="https://bizfloor.com/faq">FAQ</a></li>
+                        <li><a href="https://bizfloor.com/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>Email: info@bizfloor.com</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Address: 123 Business Ave</li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </body>
+        </html>
+        
