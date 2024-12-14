@@ -16,13 +16,18 @@
             <nav class="navbars">
                 <div class="logo">BizFloor</div>
             </nav>
-        
-            <div class="search-containers">
-                <div class="modern-search">
-                    <input type="text" class="search-bar" placeholder="Search for services, businesses, or categories...">
-                    <button class="search-button">Search</button>
-                </div>
-            </div>
+          <!-- Search Bar -->
+    <div class="search-containers">
+        <div class="modern-search">
+            <input 
+                type="text" 
+                id="searchInput" 
+                class="search-bar" 
+                placeholder="Search for services, businesses, or categories..."
+            >
+            <button onclick="searchBusinesses()">Search</button>
+        </div>
+    </div>
         
             <div class="business-grid">
                 <div class="business-card">
@@ -82,6 +87,35 @@
                     </div>
                 </div>
             </footer>
+             <script>
+        // Search Functionality
+        function searchBusinesses() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const businessCards = document.querySelectorAll('.business-card');
+
+            businessCards.forEach(card => {
+                const name = card.querySelector('.business-name').innerText.toLowerCase();
+                const details = card.querySelector('.business-details').innerText.toLowerCase();
+                const category = card.querySelector('.category-tag').innerText.toLowerCase();
+
+                if (name.includes(searchInput) || details.includes(searchInput) || category.includes(searchInput)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Highlight 5-Star Businesses
+        document.addEventListener('DOMContentLoaded', function () {
+            const ratings = document.querySelectorAll('.rating');
+            ratings.forEach(rating => {
+                if (rating.innerText.trim() === '★★★★★') {
+                    rating.style.color = 'gold';
+                }
+            });
+        });
+    </script>
         </body>
         </html>
         
