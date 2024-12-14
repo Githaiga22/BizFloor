@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Dashboard</title>
+    <script>
+        // Check for authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+
+            // Fetch user profile
+            fetch('/api/profile', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Authentication failed');
+                }
+                return response.json();
+            })
+            .then(user => {
+                // Update UI with user information
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userEmail').textContent = user.email;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Customer Dashboard</h1>
+    <div>
+        <h2>Welcome, <span id="userName">...</span></h2>
+        <p>Email: <span id="userEmail">...</span></p>
+    </div>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        function logout() {
+            const token = localStorage.getItem('token');
+            fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then(() => {
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            });
+        }
+    </script>
+</body>
+</html> 
