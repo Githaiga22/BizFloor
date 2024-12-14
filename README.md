@@ -21,7 +21,6 @@ BizFloor is a secure escrow platform with integrated scheduling and booking, tai
 4. **Actionable Insights**  
    - Comprehensive analytics for cash flow, peak periods, and operational performance.  
 
-```
 
 ## 🛠 Installation and Setup  
 ### Prerequisites  
@@ -37,7 +36,7 @@ Ensure you have the following installed:
    git clone https://github.com/Githaiga22/BizFloor.git
    ```
 ### Navigate to the Project Directory:
-cd bizfloor
+cd Bizfloor
 
 ### How to run the Project:
 ```
@@ -71,3 +70,4 @@ git push origin feature/your-feature-name
 5. Submit a pull request
 
 
+ ```
