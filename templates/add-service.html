@@ -3,20 +3,33 @@
 <head>
     <title>Create Service - One4All</title>
     <style>
-        body { font-family: Arial; max-width: 500px; margin: 50px auto; padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
+        #serviceForm{
+            margin: 0 auto;
+        }
+        .form-group { max-width: 500px; margin: 20px auto;}
+        label {text-align: center; }
         input[type="text"], input[type="number"], input[type="number"].price { 
             width: 100%; 
             padding: 8px;
             margin-bottom: 10px;
         }
         .error { color: red; margin-bottom: 10px; }
-        button { padding: 10px 20px; background: #007bff; color: white; border: none; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none;}
     </style>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
 </head>
 <body>
-    <h2>Create Service</h2>
+    <header>
+        <a href="/" class="logo">
+            <i class="fas fa-business-time"></i>
+            BizFloor
+        </a>
+        <div class="user-section">
+            <span id="userName">Business Owner</span>
+            <button onclick="logout()" class="secondary-button">Logout</button>
+        </div>
+    </header>
+    <h2 style="text-align: center;">Create Service</h2>
     <div id="error" class="error"></div>
     <form id="serviceForm">
         <div class="form-group">
@@ -31,9 +44,54 @@
             <label for="durationMins">Duration (in minutes):</label>
             <input type="number" id="durationMins" name="duration_mins" required>
         </div>
-        <button type="submit">Create Service</button>
+        <div class="button-wrapper" style="text-align: center; margin-bottom: 20px;">
+            <button type="submit">Create Service</button>
+        </div>
     </form>
-
+    <footer>
+        <link rel="stylesheet" href="/static/css/styles.css">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>BizFloor provides smart solutions for modern business management needs.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://example.com/features">Features</a></li>
+                    <li><a href="https://example.com/pricing">Pricing</a></li>
+                    <li><a href="https://example.com/testimonials">Testimonials</a></li>
+                    <li><a href="https://example.com/blog">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="https://example.com/help">Help Center</a></li>
+                    <li><a href="https://example.com/faq">FAQ</a></li>
+                    <li><a href="https://example.com/contact">Contact Us</a></li>
+                    <li><a href="https://example.com/documentation">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +254-720007334</li>
+                    <li><i class="fas fa-envelope"></i> support@bizfloor.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Lakebasin Mall</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 BizFloor. All rights reserved.</p>
+        </div>
+    </footer>
     <script>
         document.getElementById('serviceForm').addEventListener('submit', async (e) => {
             e.preventDefault();
