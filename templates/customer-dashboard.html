@@ -87,23 +87,36 @@
                     </div>
                 </div>
             </footer>
-             <script>
+          <!-- JavaScript Code -->
+    <script>
         // Search Functionality
         function searchBusinesses() {
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const businessCards = document.querySelectorAll('.business-card');
+            let found = false;
 
             businessCards.forEach(card => {
                 const name = card.querySelector('.business-name').innerText.toLowerCase();
                 const details = card.querySelector('.business-details').innerText.toLowerCase();
                 const category = card.querySelector('.category-tag').innerText.toLowerCase();
 
+                // Match search criteria
                 if (name.includes(searchInput) || details.includes(searchInput) || category.includes(searchInput)) {
                     card.style.display = 'block';
+                    found = true;
                 } else {
                     card.style.display = 'none';
                 }
             });
+
+            // Check if no business matches the search
+            if (!found) {
+                alert('No businesses found! Reloading the existing business list.');
+                // Reset all cards to visible
+                businessCards.forEach(card => card.style.display = 'block');
+                // Clear search input
+                document.getElementById('searchInput').value = '';
+            }
         }
 
         // Highlight 5-Star Businesses
