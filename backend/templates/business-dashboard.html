@@ -31,7 +31,11 @@
                 <div class="action-grid">
                     <div class="action-card">
                         <h3>Manage Services</h3>
-                        <p>Add, edit, and remove services</p>
+                        <div class="user-section">
+                            <span id="userName"></span>
+                            <button onclick="addServices()">Add Service</button>
+                        </div>
+                        <p>Edit and remove services</p>
                     </div>
                     <div class="action-card">
                         <h3>View Bookings</h3>
@@ -87,6 +91,9 @@
         }
         function createProfile() {
             window.location.href = '/create-profile';
+        }
+        function addServices() {
+            window.location.href = '/add-service';
         }
     </script>
 </body>
