@@ -3,66 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <title>Customer Dashboard</title>
-    <link href="/static/styles.css" rel="stylesheet">
-</head>
-<body>
-    <div class="dashboard-container">
-        <header>
-            <h1>Welcome, <span id="userName"></span></h1>
-            <button onclick="logout()">Logout</button>
-        </header>
-        
-        <main>
-            <div id="userInfo" class="user-info">
-                <h2>Your Profile</h2>
-                <p>Email: <span id="userEmail"></span></p>
-            </div>
-
-            <div class="dashboard-actions">
-                <h2>Customer Actions</h2>
-                <p>More features coming soon!</p>
-            </div>
-        </main>
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <html>
+        <head>
+            <base href="." />
+            <meta charset="UTF-8" />
+            <meta name="viewport" conteneft="width=device-width, initial-scale=1.0" />
+            <title>BizFloor - Customer Dashboard</title>
+            <link rel="stylesheet" hr="styles.css">
+        </head>
+        <body>
+            <nav class="navbars">
+                <div class="logo">BizFloor</div>
+            </nav>
+          <!-- Search Bar -->
+    <div class="search-containers">
+        <div class="modern-search">
+            <input 
+                type="text" 
+                id="searchInput" 
+                class="search-bar" 
+                placeholder="Search for services, businesses, or categories..."
+            >
+            <button onclick="searchBusinesses()">Search</button>
+        </div>
     </div>
-
+        
+            <div class="business-grid">
+                <div class="business-card">
+                    <h3 class="business-name">Serenity Spa & Wellness</h3>
+                    <p class="business-details">Luxury Massage & Wellness Services</p>
+                    <div class="rating">★★★★★</div>
+                    <span class="category-tag">Massage</span>
+                </div>
+        
+                <div class="business-card">
+                    <h3 class="business-name">Glamour Beauty Lounge</h3>
+                    <p class="business-details">Premium Beauty & Cosmetic Services</p>
+                    <div class="rating">★★★★★</div>
+                    <span class="category-tag">Beauty</span>
+                </div>
+        
+                <div class="business-card">
+                    <h3 class="business-name">Therapeutic Touch Massage</h3>
+                    <p class="business-details">Professional Massage Therapy</p>
+                    <div class="rating">★★★★☆</div>
+                    <span class="category-tag">Massage</span>
+                </div>
+        
+                <div class="business-card">
+                    <h3 class="business-name">Divine Nails & Beauty</h3>
+                    <p class="business-details">Nail Care & Beauty Treatments</p>
+                    <div class="rating">★★★★★</div>
+                    <span class="category-tag">Beauty</span>
+                </div>
+            </div>
+        
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>About Us</h4>
+                        <ul>
+                            <li><a href="https://bizfloor.com/about">Our Story</a></li>
+                            <li><a href="https://bizfloor.com/team">Team</a></li>
+                            <li><a href="https://bizfloor.com/careers">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="https://bizfloor.com/services">Services</a></li>
+                            <li><a href="https://bizfloor.com/pricing">Pricing</a></li>
+                            <li><a href="https://bizfloor.com/blog">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="https://bizfloor.com/help">Help Center</a></li>
+                            <li><a href="https://bizfloor.com/contact">Contact Us</a></li>
+                            <li><a href="https://bizfloor.com/faq">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+          <!-- JavaScript Code -->
     <script>
-        // Load user info on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch('/api/profile', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include'
-                });
+        // Search Functionality
+        function searchBusinesses() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const businessCards = document.querySelectorAll('.business-card');
+            let found = false;
 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch profile');
+            businessCards.forEach(card => {
+                const name = card.querySelector('.business-name').innerText.toLowerCase();
+                const details = card.querySelector('.business-details').innerText.toLowerCase();
+                const category = card.querySelector('.category-tag').innerText.toLowerCase();
+
+                // Match search criteria
+                if (name.includes(searchInput) || details.includes(searchInput) || category.includes(searchInput)) {
+                    card.style.display = 'block';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
                 }
+            });
 
-                const userData = await response.json();
-                document.getElementById('userName').textContent = userData.name || 'User';
-                document.getElementById('userEmail').textContent = userData.email || 'N/A';
-            } catch (error) {
-                console.error('Profile fetch error:', error);
-                window.location.href = '/login';
-            }
-        });
-
-        // Logout functionality
-        async function logout() {
-            try {
-                await fetch('/api/auth/logout', { 
-                    method: 'POST',
-                    credentials: 'include' 
-                });
-                window.location.href = '/login';
-            } catch (error) {
-                console.error('Logout failed:', error);
-                window.location.href = '/login';
+            // Check if no business matches the search
+            if (!found) {
+                alert('No businesses found! Reloading the existing business list.');
+                // Reset all cards to visible
+                businessCards.forEach(card => card.style.display = 'block');
+                // Clear search input
+                document.getElementById('searchInput').value = '';
             }
         }
+
+        // Highlight 5-Star Businesses
+        document.addEventListener('DOMContentLoaded', function () {
+            const ratings = document.querySelectorAll('.rating');
+            ratings.forEach(rating => {
+                if (rating.innerText.trim() === '★★★★★') {
+                    rating.style.color = 'gold';
+                }
+            });
+        });
     </script>
-</body>
-</html>
+        </body>
+        </html>
+        
