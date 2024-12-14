@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Business Profile - One4All</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 50px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"] { 
+            width: 100%; 
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        .error { color: red; margin-bottom: 10px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h2>Create Business Profile</h2>
+    <div id="error" class="error"></div>
+    <form id="businessProfileForm">
+        <div class="form-group">
+            <label for="name">Business Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="type">Business Type:</label>
+            <input type="text" id="type" name="type" required>
+        </div>
+        <div class="form-group">
+            <label for="mpesaNumber">Mpesa Number:</label>
+            <input type="text" id="mpesaNumber" name="mpesa_number" required>
+        </div>
+        <button type="submit">Create Profile</button>
+    </form>
+
+    <script>
+        document.getElementById('businessProfileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = ''; // Clear any existing error messages
+            
+            try {
+                const response = await fetch('/api/create-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value,
+                        type: document.getElementById('type').value,
+                        mpesa_number: document.getElementById('mpesaNumber').value,
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(error);
+                }
+
+                // Redirect to business dashboard
+                window.location.href = '/business-dashboard';
+            } catch (error) {
+                errorDiv.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html>
