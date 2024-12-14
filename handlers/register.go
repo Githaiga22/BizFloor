@@ -21,6 +21,13 @@ func RegisterHandlers(mux *http.ServeMux, db *gorm.DB) {
 	mux.HandleFunc("/api/auth/login", authHandler.Login)
 	mux.HandleFunc("/api/auth/logout", authHandler.Logout)
 
+	// Initialize booking handler
+	bookingHandler := NewBookingHandler(db)
+
+	// Add booking routes
+	mux.Handle("/api/bookings", authHandler.AuthMiddleware(http.HandlerFunc(bookingHandler.CreateBooking)))
+	mux.Handle("/api/bookings/list", authHandler.AuthMiddleware(http.HandlerFunc(bookingHandler.GetBookings)))
+	mux.Handle("/api/bookings/status", authHandler.AuthMiddleware(http.HandlerFunc(bookingHandler.UpdateBookingStatus)))
 	// Protected routes
 	mux.Handle("/api/profile", authHandler.AuthMiddleware(http.HandlerFunc(profileHandler.profileHandler)))
 	mux.Handle("/api/create-profile", authHandler.AuthMiddleware(http.HandlerFunc(businessProfileHandler.CreateProfile)))
@@ -29,7 +36,8 @@ func RegisterHandlers(mux *http.ServeMux, db *gorm.DB) {
 	// mux.Handle("/create-booking/pay", authHandler.AuthMiddleware(http.HandlerFunc(paymentHandler.CreatePaymentHandler)))
 
 	// Public page routes
-	mux.HandleFunc("/", serveTemplate("login.html"))
+	mux.HandleFunc("/", serveTemplate("index.html"))
+	mux.HandleFunc("/login", serveTemplate("login.html"))
 	mux.HandleFunc("/signup", serveTemplate("signup.html"))
 	mux.Handle("/business-dashboard", authHandler.AuthMiddleware(http.HandlerFunc(serveTemplate("business-dashboard.html"))))
 	mux.Handle("/customer-dashboard", authHandler.AuthMiddleware(http.HandlerFunc(serveTemplate("customer-dashboard.html"))))
