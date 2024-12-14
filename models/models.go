@@ -84,7 +84,7 @@ type Payment struct {
     Amount         float64        `gorm:"type:decimal(10,2);not null" json:"amount"`
     Status         string         `gorm:"not null;default:'pending'" json:"status"` // pending, held, released, refunded
     PaymentTime    time.Time      `json:"payment_time"`
-    MpesaReference string         `gorm:"uniqueIndex" json:"mpesa_reference"`
+    MpesaReference string         `gorm:"type:varchar(255);uniqueIndex" json:"mpesa_reference"`
     CreatedAt      time.Time      `json:"created_at"`
     UpdatedAt      time.Time      `json:"updated_at"`
     DeletedAt      gorm.DeletedAt `gorm:"index" json:"-"`

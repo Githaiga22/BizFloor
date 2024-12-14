@@ -144,6 +144,29 @@ button:hover {
     }
 }
 
+.centered-container {
+    display: flex;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f9f9f9; /* Optional background color */
+}
+
+.withdrawal-container {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center; /* Center the content within the container */
+    width: 100%;
+    max-width: 400px;
+}
+
+.withdrawal-container h2{
+    margin-bottom: 20px;
+}
+
+.success-message{
+    padding-top: 50px;
+}
+
 
 footer {
     background: var(--primary-color);

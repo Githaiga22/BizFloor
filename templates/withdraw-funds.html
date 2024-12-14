@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Funds</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header>
+            <a href="/" class="logo">
+                <i class="fas fa-business-time"></i>
+                BizFloor
+            </a>
+            <div class="user-section">
+                <span id="userName">Business Owner</span>
+                <button onclick="logout()" class="secondary-button">Logout</button>
+            </div>
+        </header>
+
+        <div class="centered-container">
+            <div class="withdrawal-container">
+                <h2>Withdraw Funds</h2>
+                <form id="withdrawForm" class="withdraw-form">
+                    <label for="withdrawAmount">Amount to Withdraw (KSH):</label>
+                    <input type="number" id="withdrawAmount" name="withdrawAmount" required min="1" class="input-field"
+                        placeholder="Enter amount">
+                    <button type="submit" class="primary-button">Withdraw</button>
+                </form>
+                <div id="withdrawMessage" class="success-message" style="display: none; color: green;">
+                    Withdrawal Successful! You have withdrawn KSH <span id="withdrawnAmount"></span>.
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BizFloor. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Mock available funds
+        let availableFunds = 24580.50;
+
+        document.getElementById('withdrawForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value);
+
+            if (withdrawAmount > availableFunds) {
+                alert('Insufficient funds! Please enter a valid amount.');
+                return;
+            }
+
+            // Simulate withdrawal
+            availableFunds -= withdrawAmount;
+
+            // Show success message
+            document.getElementById('withdrawnAmount').textContent = withdrawAmount.toLocaleString('en-KE', {
+                style: 'currency',
+                currency: 'KES',
+                minimumFractionDigits: 2
+            });
+
+            document.getElementById('withdrawMessage').style.display = 'block';
+
+            // Reset form
+            document.getElementById('withdrawForm').reset();
+        });
+
+        async function logout() {
+            try {
+                await fetch('/api/auth/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                window.location.href = '/login';
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

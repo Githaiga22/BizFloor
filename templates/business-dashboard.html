@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Dashboard</title>
     <link rel="stylesheet" href="/static/css/dashboard.css">
 </head>
+
 <body>
     <div class="dashboard-container">
         <header>
@@ -22,7 +24,7 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>Available Funds</h3>
-                <div class="stat-value" id="availableFunds">$0.00</div>
+                <div class="stat-value" id="availableFunds">KSH0.00</div>
                 <button onclick="withdrawFunds()">Withdraw</button>
             </div>
             <div class="stat-card">
@@ -31,7 +33,7 @@
             </div>
             <div class="stat-card">
                 <h3>Expected Revenue</h3>
-                <div class="stat-value" id="expectedRevenue">$0.00</div>
+                <div class="stat-value" id="expectedRevenue">KSH0.00</div>
             </div>
             <div class="stat-card">
                 <h3>Total Customers</h3>
@@ -160,9 +162,9 @@
         }
 
         function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-US', {
+            return new Intl.NumberFormat('en-KE', {
                 style: 'currency',
-                currency: 'USD'
+                currency: 'KES'
             }).format(amount);
         }
 
@@ -186,8 +188,9 @@
             window.location.href = '/add-service';
         }
         function withdrawFunds() {
-            window.location.href = '/withdraw-Funds';
+            window.location.href = '/withdraw-funds';
         }
     </script>
 </body>
+
 </html>
