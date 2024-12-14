@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Service - One4All</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 50px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="number"], input[type="number"].price { 
+            width: 100%; 
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        .error { color: red; margin-bottom: 10px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h2>Create Service</h2>
+    <div id="error" class="error"></div>
+    <form id="serviceForm">
+        <div class="form-group">
+            <label for="name">Service Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" class="price" required>
+        </div>
+        <div class="form-group">
+            <label for="durationMins">Duration (in minutes):</label>
+            <input type="number" id="durationMins" name="duration_mins" required>
+        </div>
+        <button type="submit">Create Service</button>
+    </form>
+
+    <script>
+        document.getElementById('serviceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = ''; // Clear any existing error messages
+            
+            try {
+                const response = await fetch('/api/add-service', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value,
+                        price: parseFloat(document.getElementById('price').value),
+                        duration_mins: parseInt(document.getElementById('durationMins').value),
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(error);
+                }
+
+                // Redirect to the business dashboard
+                window.location.href = '/business-dashboard';
+            } catch (error) {
+                errorDiv.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html>
