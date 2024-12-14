@@ -2,97 +2,146 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Dashboard</title>
-    <link href="/static/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
 </head>
 <body>
     <div class="dashboard-container">
         <header>
-            <h1>Business Dashboard</h1>
+            <a href="/" class="logo">
+                <i class="fas fa-business-time"></i>
+                BizFloor
+            </a>
             <div class="user-section">
-                <span id="userName"></span>
-                <button onclick="logout()">Logout</button>
+                <span id="userName">Business Owner</span>
+                <button onclick="logout()" class="secondary-button">Logout</button>
             </div>
         </header>
-        
-        <main>
-            <div id="userInfo" class="user-info">
-                <h2>Business Profile</h2>
-                <p>Name: <span id="userName2"></span></p>
-                <p>Email: <span id="userEmail"></span></p>
-                <div class="user-section">
-                    <span id="userName"></span>
-                    <button onclick="createProfile()">create profile</button>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Available Funds</h3>
+                <div class="stat-value" id="availableFunds">$0.00</div>
+                <button onclick="withdrawFunds()">Withdraw</button>
+            </div>
+            <div class="stat-card">
+                <h3>Upcoming Bookings</h3>
+                <div class="stat-value" id="upcomingBookings">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Expected Revenue</h3>
+                <div class="stat-value" id="expectedRevenue">$0.00</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Customers</h3>
+                <div class="stat-value" id="totalCustomers">0</div>
+            </div>
+        </div>
+
+        <div class="action-grid">
+            <div class="action-card">
+                <h3>Business Profile</h3>
+                <div id="userInfo" class="user-info">
+                    <p>Name: <span id="userName2">Business Owner</span></p>
+                    <p>Email: <span id="userEmail">N/A</span></p>
+                    <button onclick="createProfile()" class="secondary-button">Edit Profile</button>
                 </div>
             </div>
 
-            <div class="dashboard-actions">
-                <h2>Business Management</h2>
-                <div class="action-grid">
-                    <div class="action-card">
-                        <h3>Manage Services</h3>
-                        <div class="user-section">
-                            <span id="userName"></span>
-                            <button onclick="addServices()">Add Service</button>
-                        </div>
-                        <p>Edit and remove services</p>
-                    </div>
-                    <div class="action-card">
-                        <h3>View Bookings</h3>
-                        <p>Track your appointments</p>
-                    </div>
-                    <div class="action-card">
-                        <h3>Customer Insights</h3>
-                        <p>Analyze customer data</p>
-                    </div>
-                </div>
+            <div class="action-card">
+                <h3>Service Management</h3>
+                <button onclick="addServices()">Add New Service</button>
+                <div id="servicesList" class="bookings-list"></div>
             </div>
-        </main>
+
+            <div class="action-card">
+                <h3>Today's Bookings</h3>
+                <div id="todayBookings" class="bookings-list"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Load user info on page load
+        // Mock data - replace with actual API calls
+        const mockData = {
+            funds: 24580.50,
+            upcomingBookings: 8,
+            expectedRevenue: 1250.00,
+            totalCustomers: 145,
+            services: [
+                { name: 'Service 1', price: 99.99 },
+                { name: 'Service 2', price: 149.99 }
+            ],
+            todayBookings: [
+                { customer: 'John Doe', service: 'Service 1', time: '14:00' },
+                { customer: 'Jane Smith', service: 'Service 2', time: '15:30' }
+            ]
+        };
+
+        // Initialize dashboard
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                const response = await fetch('/api/profile', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include' 
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch profile');
-                }
-
-                const userData = await response.json();
-                document.getElementById('userName').textContent = userData.name || 'Business Owner';
-                document.getElementById('userName2').textContent = userData.name || 'Business Owner';
-                document.getElementById('userEmail').textContent = userData.email || 'N/A';
+                // In production, replace with actual API call
+                initializeDashboard(mockData);
             } catch (error) {
-                console.error('Profile fetch error:', error);
-                window.location.href = '/login';
+                console.error('Dashboard initialization error:', error);
             }
         });
 
-        // Logout functionality
+        function initializeDashboard(data) {
+            // Update stats
+            document.getElementById('availableFunds').textContent = formatCurrency(data.funds);
+            document.getElementById('upcomingBookings').textContent = data.upcomingBookings;
+            document.getElementById('expectedRevenue').textContent = formatCurrency(data.expectedRevenue);
+            document.getElementById('totalCustomers').textContent = data.totalCustomers;
+
+            // Populate services
+            const servicesList = document.getElementById('servicesList');
+            servicesList.innerHTML = data.services.map(service => `
+                <div class="booking-item">
+                    <strong>${service.name}</strong>
+                    <p>${formatCurrency(service.price)}</p>
+                </div>
+            `).join('');
+
+            // Populate today's bookings
+            const todayBookings = document.getElementById('todayBookings');
+            todayBookings.innerHTML = data.todayBookings.map(booking => `
+                <div class="booking-item">
+                    <strong>${booking.customer}</strong>
+                    <p>${booking.service} at ${booking.time}</p>
+                </div>
+            `).join('');
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount);
+        }
+
         async function logout() {
             try {
-                await fetch('/api/auth/logout', { 
+                await fetch('/api/auth/logout', {
                     method: 'POST',
-                    credentials: 'include' 
+                    credentials: 'include'
                 });
                 window.location.href = '/login';
             } catch (error) {
                 console.error('Logout failed:', error);
-                window.location.href = '/login';
             }
         }
+
         function createProfile() {
             window.location.href = '/create-profile';
         }
+
         function addServices() {
+            window.location.href = '/add-service';
+        }
+        function withdrawFunds() {
             window.location.href = '/add-service';
         }
     </script>
