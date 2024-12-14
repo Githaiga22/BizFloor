@@ -29,9 +29,7 @@ func InitDB() (*gorm.DB, error) {
 		return nil, fmt.Errorf("❌ Failed to connect to Azure SQL Database: %v", err)
 	}
 
-	// Auto Migrate the schema
-	err = db.AutoMigrate(&models.User{})
-	// Uncomment if you have more models to migrate
+	
 	err = db.AutoMigrate(&models.User{}, &models.Business{},
 		// &models.Service{}, &models.Booking{}, &models.Payment{}, &models.SavedPlace{}, &models.LoyalClient{}
 	)
