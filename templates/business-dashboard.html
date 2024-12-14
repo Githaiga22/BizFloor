@@ -59,7 +59,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    credentials: 'include' // Important for cookies
+                    credentials: 'include' 
                 });
 
                 if (!response.ok) {
@@ -81,7 +81,7 @@
             try {
                 await fetch('/api/auth/logout', { 
                     method: 'POST',
-                    credentials: 'include' // Important for cookies
+                    credentials: 'include' 
                 });
                 window.location.href = '/login';
             } catch (error) {
