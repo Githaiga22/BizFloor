@@ -29,12 +29,16 @@ func RegisterHandlers(mux *http.ServeMux, db *gorm.DB) {
 	// mux.Handle("/create-booking/pay", authHandler.AuthMiddleware(http.HandlerFunc(paymentHandler.CreatePaymentHandler)))
 
 	// Public page routes
-	mux.HandleFunc("/", serveTemplate("login.html"))
+	mux.HandleFunc("/", serveTemplate("index.html"))
+	mux.HandleFunc("/login", serveTemplate("login.html"))
 	mux.HandleFunc("/signup", serveTemplate("signup.html"))
 	mux.Handle("/business-dashboard", authHandler.AuthMiddleware(http.HandlerFunc(serveTemplate("business-dashboard.html"))))
 	mux.Handle("/customer-dashboard", authHandler.AuthMiddleware(http.HandlerFunc(serveTemplate("customer-dashboard.html"))))
 	mux.Handle("/create-profile", authHandler.AuthMiddleware(http.HandlerFunc(serveTemplate("create-business-profile.html"))))
 	mux.Handle("/add-service", authHandler.AuthMiddleware(http.HandlerFunc(serveTemplate("add-service.html"))))
+
+	// Static files handler
+	mux.HandleFunc("/static/", ServeStatic)
 }
 
 func serveTemplate(templateName string) http.HandlerFunc {

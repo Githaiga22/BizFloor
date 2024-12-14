@@ -46,10 +46,6 @@ func main() {
 	// Register all handlers
 	handlers.RegisterHandlers(mux, database)
 
-	// Serve static files
-	fs := http.FileServer(http.Dir("static"))
-	mux.Handle("/static/", http.StripPrefix("/static/", fs))
-
 	// Start the server
 	log.Println("Server is running on :8080")
 	if err := http.ListenAndServe(":8080", mux); err != nil {
