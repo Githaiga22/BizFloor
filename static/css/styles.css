@@ -116,6 +116,99 @@ body {
     transform: scale(1.1);
     color: var(--accent-color);
 }
+main {
+    margin-top: 60px; /* Adjust to match navbar height */
+    padding: 0; /* Remove padding to allow hero section to extend full width */
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-top: -2rem; /* Adjust to remove gap with navbar */
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color); /* Match with logo color */
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--accent-color);
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 25px; /* Match with nav buttons */
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid var(--accent-color);
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    background: var(--hover-color);
+    border-color: var(--hover-color);
+}
+
+.features-section {
+    padding: 4rem 2rem;
+    background: #f5f5f5;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--secondary-color);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+}
 
 footer {
     background: var(--primary-color);
