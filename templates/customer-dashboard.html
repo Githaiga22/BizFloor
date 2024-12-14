@@ -1,68 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Customer Dashboard</title>
-    <script>
-        // Check for authentication on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = '/login';
-                return;
-            }
-
-            // Fetch user profile
-            fetch('/api/profile', {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Authentication failed');
-                }
-                return response.json();
-            })
-            .then(user => {
-                // Update UI with user information
-                document.getElementById('userName').textContent = user.name;
-                document.getElementById('userEmail').textContent = user.email;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                localStorage.removeItem('token');
-                window.location.href = '/login';
-            });
-        });
-    </script>
+    <link href="/static/styles.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Customer Dashboard</h1>
-    <div>
-        <h2>Welcome, <span id="userName">...</span></h2>
-        <p>Email: <span id="userEmail">...</span></p>
+    <div class="dashboard-container">
+        <header>
+            <h1>Welcome, <span id="userName"></span></h1>
+            <button onclick="logout()">Logout</button>
+        </header>
+        
+        <main>
+            <div id="userInfo" class="user-info">
+                <h2>Your Profile</h2>
+                <p>Email: <span id="userEmail"></span></p>
+            </div>
+
+            <div class="dashboard-actions">
+                <h2>Customer Actions</h2>
+                <p>More features coming soon!</p>
+            </div>
+        </main>
     </div>
-    <button onclick="logout()">Logout</button>
 
     <script>
-        function logout() {
-            const token = localStorage.getItem('token');
-            fetch('/api/auth/logout', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + token
+        // Load user info on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include' // Important for cookies
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile');
                 }
-            })
-            .then(() => {
-                localStorage.removeItem('token');
+
+                const userData = await response.json();
+                document.getElementById('userName').textContent = userData.name || 'User';
+                document.getElementById('userEmail').textContent = userData.email || 'N/A';
+            } catch (error) {
+                console.error('Profile fetch error:', error);
                 window.location.href = '/login';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                localStorage.removeItem('token');
+            }
+        });
+
+        // Logout functionality
+        async function logout() {
+            try {
+                await fetch('/api/auth/logout', { 
+                    method: 'POST',
+                    credentials: 'include' // Important for cookies
+                });
                 window.location.href = '/login';
-            });
+            } catch (error) {
+                console.error('Logout failed:', error);
+                window.location.href = '/login';
+            }
         }
     </script>
 </body>
-</html> 
+</html>
