@@ -30,8 +30,8 @@ func InitDB() (*gorm.DB, error) {
 	}
 
 	
-	err = db.AutoMigrate(&models.User{}, &models.Business{},
-		// &models.Service{}, &models.Booking{}, &models.Payment{}, &models.SavedPlace{}, &models.LoyalClient{}
+	err = db.AutoMigrate(&models.User{}, &models.Business{}, &models.Service{},
+		// &models.Booking{}, &models.Payment{}, &models.SavedPlace{}, &models.LoyalClient{}
 	)
 	if err != nil {
 		return nil, fmt.Errorf("❌ Failed to migrate database: %v", err)
