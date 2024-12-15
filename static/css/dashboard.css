@@ -283,3 +283,7 @@ footer {
 main {
     margin-top: 80px;
 }
+
+#error:empty {
+    display: none;
+}
